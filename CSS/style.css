@@ -1,0 +1,33 @@
+html,
+body {
+  background: url(../IMG/back.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#userInfoModal {
+  overflow: hidden;
+}
+
+#content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#usernameError,
+#ageError,
+#colorError {
+  font-size: 0.9rem;
+  color: red;
+}
+
+span {
+  font-size: 0.9rem;
+}
+
+.font-italic {
+  white-space: nowrap;
+}

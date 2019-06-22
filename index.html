@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<HTML>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chat Room</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./CSS/style.css" />
+
+  <!-- BOOTSTRAP 4 SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- MY SCRIPT -->
+  <script src="./JS/scripts.js"></script>
+</head>
+
+<body>
+  <!-- USER INFO MODAL -->
+  <div class="modal" id="userInfoModal">
+    <div class="modal-dialog d-flex align-items-center h-100">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Welcome To The Chat Room!</h5>
+        </div>
+        <div class="modal-body">
+          <form id="form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" placeholder="Username" class="form-control" required />
+            </div>
+            <div class="mb-1" id="usernameError"></div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" id="age" placeholder="Age" class="form-control" required />
+            </div>
+            <div class="mb-1" id="ageError"></div>
+            <label for="color">Your Chat Color</label>
+            <div class="form-group">
+              <input type="range" id="range1" placeholder="Color" class="form-control-range my-1" min="0" max="255" />
+              <input type="range" id="range2" placeholder="Color" class="form-control-range my-1" min="0" max="255" />
+              <input type="range" id="range3" placeholder="Color" class="form-control-range my-1" min="0" max="255" />
+              <input type="text" id="exampleText" class="form-control mt-4" value="This is what your text will look like." readonly>
+            </div>
+            <div class="mb-1" id="colorError"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT BOX -->
+  <div class="container h-100 d-flex align-items-center justify-content-center">
+    <div id="chatBox" class="card h-75 w-100">
+      <div class="card-header">
+        <div class="row">
+          <span class="mx-auto">Chat Room</span>
+        </div>
+      </div>
+      <div id="content" class="card-body">
+
+      </div>
+      <div class="card-footer">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span id="usernamePrepend" class="input-group-text">Username</span>
+          </div>
+          <input id="message" type="text" class="form-control">
+          <div class="input-group-append">
+            <button id="send" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</HTML>
