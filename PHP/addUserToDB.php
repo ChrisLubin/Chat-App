@@ -18,7 +18,6 @@
       die('Unable to connect to database [' . $db->connect_error . ']');
   }
 
-
   $userName = mysqli_real_escape_string($db, $_POST['userName']);
   $age = mysqli_real_escape_string($db, $_POST['age']);
   $message = mysqli_real_escape_string($db, $_POST['message']);
