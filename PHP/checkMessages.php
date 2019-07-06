@@ -13,7 +13,7 @@ $dbpass = ''; // Needs to be changed to reflect your LAMP server credentials
 
 $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
-if($db->connect_errno > 0) {
+if ($db->connect_errno > 0) {
     echo "Unable to connect";
     die('Unable to connect to database [' . $db->connect_error . ']');
 }
@@ -25,24 +25,39 @@ $sql = "SELECT id FROM Messages ORDER BY id DESC LIMIT 1";
 
 $result = mysqli_query($db, $sql);
 if (mysqli_num_rows($result) > 0) {
-   $id = mysqli_fetch_row($result);
-   $serverMessages = $id[0];
+  $id = mysqli_fetch_row($result);
+  $serverMessages = $id[0];
 }
 
-if($clientMessages < $serverMessages) {
+if ($clientMessages < $serverMessages) {
   $limit = $serverMessages - $clientMessages;
-  $sql = "SELECT * FROM Messages ORDER BY id DESC LIMIT $limit";
-  echo $limit . '!!ee!!';
+  $messages = array();
+  if ($clientMessages == 0) {
+    $sql = "SELECT * FROM Messages ORDER BY id ASC LIMIT $limit";
+  } else {
+    $sql = "SELECT * FROM Messages ORDER BY id DESC LIMIT $limit";
+  }
 
   $result = mysqli_query($db, $sql);
   if (mysqli_num_rows($result) > 0) {
-   // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-      echo $row['userName'] . '!!ee!!' . $row['message'] . '!!ee!!' . $row['timeHour'] . '!!ee!!' . $row['timeMinute'] . '!!ee!!' . $row['theM'] . '!!ee!!' . $row['r'] . '!!ee!!' . $row['g'] . '!!ee!!' . $row['b'] . '!!ee!!';
+  // Output data of each row
+    while ($row = mysqli_fetch_assoc($result)) {
+      $messages[] = array(
+        'username' => $row['userName'],
+        'message' => $row['message'],
+        'hour' => $row['timeHour'],
+        'minute' => $row['timeMinute'],
+        'theM' => $row['theM'],
+        'r' => $row['r'],
+        'g' => $row['g'],
+        'b' => $row['b']
+      );
     }
+
+    echo json_encode($messages, JSON_PRETTY_PRINT);
   }
 } else {
-  echo 'Up to date';
+  echo json_encode('Up to date', JSON_PRETTY_PRINT);
 }
 
 $db->close();

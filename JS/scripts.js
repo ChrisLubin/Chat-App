@@ -152,9 +152,9 @@ $(document).ready(function() {
         b: messageObj.b
       },
 
-      success: output => {
-        if (output === 'Error!') {
-          alert(output);
+      success: response => {
+        if (response === 'Error!') {
+          alert(response);
         }
       }
     });
@@ -213,31 +213,20 @@ $(document).ready(function() {
       data: {
         numOfMessages: numOfMessages
       },
-
-      success: output => {
+      dataType: 'json',
+      success: response => {
         // If server has messages to send to client
-        if (output != 'Up to date') {
-          let parsedResult = output.split('!!ee!!');
-          let count = parsedResult[0] * 9 - parsedResult[0];
-          let i = 0;
-          let serverData = [];
-
-          while (count >= 0) {
-            serverData[i] = parsedResult[count];
-            i++;
-            count--;
-          }
-
-          for (i = 0; i < 8 * parsedResult[0]; i += 8) {
+        if (JSON.stringify(response) !== `"Up to date"`) {
+          $.each(response, (i, message) => {
             const data = {
-              username: serverData[i + 7],
-              message: serverData[i + 6],
-              hour: serverData[i + 5],
-              minute: serverData[i + 4],
-              theM: serverData[i + 3],
-              r: serverData[i + 2],
-              g: serverData[i + 1],
-              b: serverData[i],
+              username: message.username,
+              message: message.message,
+              hour: message.hour,
+              minute: message.minute,
+              theM: message.theM,
+              r: message.r,
+              g: message.g,
+              b: message.b,
               origin: 'server'
             }
 
@@ -246,7 +235,7 @@ $(document).ready(function() {
 
             const messageObj = new Message(data);
             addMessageToClient(messageObj);
-          }
+          });
 
           // Scrolls content down automatically
           $('#content').animate(

@@ -13,7 +13,7 @@ $dbpass = ''; // Needs to be changed to reflect your LAMP server credentials
 
 $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
-if($db->connect_errno > 0) {
+if ($db->connect_errno > 0) {
     echo "Unable to connect";
     die('Unable to connect to database [' . $db->connect_error . ']');
 }
@@ -25,20 +25,20 @@ $result = mysqli_query($db, "SELECT Date FROM MessagesClearDaily");
 $row = mysqli_fetch_assoc($result);
 $tableDate = $row['Date'];
 
-if($currentDate != $tableDate) {
-  //Updates the date in the table
+if ($currentDate != $tableDate) {
+  // Updates the date in the table
   $sql = "UPDATE MessagesClearDaily SET Date = '$currentDate'";
   if ($db->query($sql) != TRUE) {
     echo "Unable to update the date in the table!";
   }
 
-  //Clears the messages in the messages table
+  // Clears the messages in the messages table
   $sql = "TRUNCATE TABLE Messages";
   if ($db->query($sql) != TRUE) {
     echo "Unable to clear the messages in the database!";
   }
 
-  //Adds admin message
+  // Adds admin message
   $userName = 'Admin';
   $age = 99;
   $message = mysqli_real_escape_string($db, 'The messages in this chat are reset everyday.');
