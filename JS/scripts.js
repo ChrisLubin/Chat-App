@@ -134,16 +134,6 @@ $(document).ready(function() {
       </div>
       `;
     $('#content').append(additionalMessage);
-
-    if (messageObj.origin === 'client') {
-      $('#message').val('');
-      // Scrolls down to content automatically
-      $('#content').animate({ 
-        scrollTop: $('#content').prop('scrollHeight') 
-        },
-        500
-      );
-    }
   }
 
   function sendMessageToServer(messageObj) {
@@ -176,13 +166,7 @@ $(document).ready(function() {
     $('input[type=range]').on('input', () => {
       $('#exampleText').css(
         'color',
-        'rgb(' +
-          $('#range1').val() +
-          ', ' +
-          $('#range2').val() +
-          ', ' +
-          $('#range3').val() +
-          ')'
+        `rgb(${$('#range1').val()}, ${$('#range2').val()}, ${$('#range3').val()})`
       );
     });
 
@@ -197,7 +181,7 @@ $(document).ready(function() {
       // Send message if it's not empty
       if (data.message) {
         const messageObj = new Message(data);
-        addMessageToClient(messageObj);
+        $('#message').val('');
         sendMessageToServer(messageObj);
       }
     });
@@ -214,7 +198,7 @@ $(document).ready(function() {
         // Send message if it's not empty
         if (data.message) {
           const messageObj = new Message(data);
-          addMessageToClient(messageObj);
+          $('#message').val('');
           sendMessageToServer(messageObj);
         }
       }
@@ -257,8 +241,9 @@ $(document).ready(function() {
               origin: 'server'
             }
 
-            data.username= data.username.replace(/</g, '&lt;').replace(/>/g, '&gt;'); // Sanitize
+            data.username = data.username.replace(/</g, '&lt;').replace(/>/g, '&gt;'); // Sanitize
             data.message = data.message.replace(/</g, '&lt;').replace(/>/g, '&gt;'); // Sanitize
+
             const messageObj = new Message(data);
             addMessageToClient(messageObj);
           }
@@ -330,7 +315,7 @@ $(document).ready(function() {
         this.g = data.g;
         this.b = data.b;
         this.colorHtml = `style="color:rgb(${this.r}, ${this.g}, ${this.b});"`;
-      } else if(data.origin === 'client') {
+      } else if (data.origin === 'client') {
         // Message constructor for data from client
         this.username = username;
         this.age = parseInt(age);
